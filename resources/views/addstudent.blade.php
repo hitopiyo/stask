@@ -8,7 +8,7 @@
 <body>
     <header></header>
     <main>
-        <h1>学生追加画面A</h1>
+        <h1>学生追加画面</h1>
         
     </main>
     <footer></footer>
