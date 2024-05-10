@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,31 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function(){
+    return view(('welcome'));
+});
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/logins', function(){
+    return view(('logins'));
 });
-Route::get('/register', function () {
-    return view('register');
+Route::get('/registers', function(){
+    return view(('registers'));
 });
-Route::get('/menu', function () {
-    return view('menu');
-});
-Route::get('/maindetail', function () {
-    return view('maindetail');
-});
-Route::get('/main', function () {
-    return view('main');
-});
-Route::get('/graderegister', function () {
-    return view('graderegister');
-});
-Route::get('/gradeedit', function () {
-    return view('gradeedit');
-});
-Route::get('/edit', function () {
-    return view('edit');
-});
-Route::get('/addstudent', function () {
-    return view('addstudent');
-});
+
+Auth::routes();
+
+//Route::get('/login', 'StudentController@index')->name('login');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
