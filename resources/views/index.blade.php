@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Menu<div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,10 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                </div>
+                <div>
                     <a class="btn" href="/">学年更新</a>
                     <a class="btn" href="/">学生登録</a>
-                    <a class="btn" href="/">学生表示</a>
+                    <a class="btn" href="{{url('index')}}">学生表示</a>
                 </div>
             </div>
         </div>

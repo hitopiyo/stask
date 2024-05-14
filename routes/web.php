@@ -20,6 +20,9 @@ Route::get('/logins', function(){
 Route::get('/registers', function(){
     return view(('registers'));
 });
+Route::get('/index', function(){
+    return view(('index'));
+});
 
 Auth::routes();
 
@@ -31,4 +34,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/menu', 'StudentController@index')->name('menu');
