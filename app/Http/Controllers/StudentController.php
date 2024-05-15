@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\student;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
@@ -14,9 +14,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $message = 'welcome to mu';
         return view('index');
+        
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +26,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('');
+        $user = \Auth::user();
+        return view('addstudent', compact('user'));
     }
 
     /**
@@ -36,7 +38,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        return view('top');
+        $data = $request->all();
+        //return view('top');
+        $student_id = Student::insertGetId([
+            'name' => $data['name'], 'address' => $data['address']
+        ]);
+        return redirect()->route('index');
     }
 
     /**
@@ -82,5 +89,12 @@ class StudentController extends Controller
     public function destroy($id)
     {
         return view('top');
+    }
+
+    public function studentAll()
+    {
+        $student = Student::get();
+        $result = $student -> getAll();
+        return view('student_view',['student_result' => $result]);
     }
 }

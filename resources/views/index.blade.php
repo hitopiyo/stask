@@ -15,9 +15,7 @@
                     @endif
                 </div>
                 <div>
-                    <a class="btn" href="/">学年更新</a>
-                    <a class="btn" href="/">学生登録</a>
-                    <a class="btn" href="{{url('index')}}">学生表示</a>
+                aaaa
                 </div>
             </div>
         </div>

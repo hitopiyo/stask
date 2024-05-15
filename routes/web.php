@@ -20,18 +20,11 @@ Route::get('/logins', function(){
 Route::get('/registers', function(){
     return view(('registers'));
 });
-Route::get('/index', function(){
-    return view(('index'));
-});
-
-Auth::routes();
-
-//Route::get('/login', 'StudentController@index')->name('login');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
 Route::get('/menu', 'StudentController@index')->name('menu');
+Route::get('/addstudent', 'StudentController@create')->name('create');
+
+Route::post('/store', 'StudentController@store')->name('store');
