@@ -10,9 +10,7 @@ use App\Http\Controllers\StudentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    return view(('welcome'));
-});
+
 
 Route::get('/logins', function(){
     return view(('logins'));
@@ -24,7 +22,10 @@ Route::get('/registers', function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/index', 'StudentController@index')->name('index');
 Route::get('/menu', 'StudentController@index')->name('menu');
 Route::get('/addstudent', 'StudentController@create')->name('create');
-
 Route::post('/store', 'StudentController@store')->name('store');
+Route::get('/show/{id}', 'StudentController@show')->name('show');
+Route::get('/edit/{id}', 'StudentController@edit')->name('edit');
+Route::post('/update/{id}', 'StudentController@update')->name('update');

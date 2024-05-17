@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
+
 class StudentController extends Controller
 {
     /**
@@ -14,7 +15,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $students = Student::get();
+
+        return view('index',compact('students'));
         
     }
 
@@ -41,9 +44,13 @@ class StudentController extends Controller
         $data = $request->all();
         //return view('top');
         $student_id = Student::insertGetId([
-            'name' => $data['name'], 'address' => $data['address']
+            'name' => $data['name'], 
+            'address' => $data['address'],
+            'grade' => 1,
+            'img_path' =>1,
+            'comment' => 1
         ]);
-        return redirect()->route('index');
+        return redirect()->route('home');
     }
 
     /**
@@ -54,7 +61,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        return view('top');
+        $students = Student::where('id',$id)->get();
+        return view('show', compact('students'));
     }
 
     /**
@@ -65,7 +73,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        return view('top');
+        $user = \Auth::user();
+        $students = Student::where('id',$id)->first();
+        return view('edit',['id'=> $id ],compact('students','user'));
     }
 
     /**

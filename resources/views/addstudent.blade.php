@@ -18,6 +18,7 @@
                     <form method='POST' action="{{url('store')}}">
                     @csrf
                         <input type='hidden' name='user_id' value="{{ $user['id'] }}">
+                        
                         <div class="form-group">
                             <label for="name">名前</label>
                             <input name='name' type="text" class="form-control" id="name" placeholder="名前を入力">
@@ -26,6 +27,7 @@
                             <label for="address">住所</label>
                             <input name='address' type="text" class="form-control" id="address" placeholder="住所を入力">
                         </div>
+                        
                         <button type='submit' class="btn btn-primary btn-lg">登録</button>
                     </form>
                 </div>

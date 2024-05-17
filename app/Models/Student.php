@@ -7,7 +7,11 @@ use App\Models\Student;
 
 class Student extends Model
 {
-    protected $attributes = [
-        'grade' => 1,
+    protected $table = 'students';
+    protected $fillable = [
+        'name',
+        'adress',
+        'grade'
     ];
+    
 }
