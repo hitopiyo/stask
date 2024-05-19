@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\SchoolGrade;
 
 
 class StudentController extends Controller
@@ -87,7 +88,21 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return view('top');
+        // 商品データを1件取得
+        $student = Student::find($id);
+
+        // リクエストからModelの$fillableに設定したプロパティのみを抽出・保存
+        $student->fill($request->all())->save();
+
+        // http://localhost/item_manager/public/itemにリダイレクト
+        return redirect("/show/{id}");
+    }
+    
+    public function creategrade()
+    {
+        $user = \Auth::user();
+        $school_grade = SchoolGrade::get();
+        return view('graderegister', compact('user'));
     }
 
     /**

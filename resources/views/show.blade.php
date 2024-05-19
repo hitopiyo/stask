@@ -22,7 +22,7 @@
                             <li>顔写真：{{ $student['img_path'] }}</li>
                             <li>コメント：{{ $student['comment'] }}</li>
                         </ul>
-                        <a href="">学生編集</a>
+                        <a href="{{url('edit/{id}')}}">学生編集</a>
                         
                     @endforeach
                 </div>

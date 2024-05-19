@@ -29,3 +29,4 @@ Route::post('/store', 'StudentController@store')->name('store');
 Route::get('/show/{id}', 'StudentController@show')->name('show');
 Route::get('/edit/{id}', 'StudentController@edit')->name('edit');
 Route::post('/update/{id}', 'StudentController@update')->name('update');
+Route::get('/graderegister/{id}', 'StudentController@creategrade')->name('creategrade');
