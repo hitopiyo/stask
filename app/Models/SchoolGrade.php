@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolGrade extends Model
+class SchoolGrades extends Model
 {
-    protected $table = 'students';
+    protected $table = 'school_grade';
     protected $fillable = [
         'grade',
         'term',

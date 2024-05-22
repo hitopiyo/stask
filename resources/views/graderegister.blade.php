@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">学生編集画面<div>
+                <div class="card-header">学生成績追加画面<div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,39 +14,104 @@
                         </div>
                     @endif
 
-                    <form method='POST' action="{{url('addgrade',['id'=>$school_grade['id']])}}">
+                    <form method='POST' action="{{url('addgrade')}}">
                     @csrf
-                        <input type='hidden' name='user_id' value="{{ $user['id'] }}">
                         
-                        <div class="form-group">
-                            <p>学生id</p>
-                            <p>{{ $students->name }}</p>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="grade">学年</label>
-                            <input name='grade' type="text" class="form-control" id="grade" value="{{ $school_grade }}">
+                            <select name='grade' type="text" class="form-control" id="grade" value="">
+                                <option value="">1年</option>
+                                <option value="">2年</option>
+                                <option value="">3年</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">名前</label>
-                            <input name='name' type="text" class="form-control" id="name" value="{{ school_grade }}">
+                            <label for="term">学期</label>
+                            <select name='term' type="text" class="form-control" id="term" value="">
+                                <option value="">1学期</option>
+                                <option value="">2学期</option>
+                                <option value="">3学期</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="address">住所</label>
-                            <input name='address' type="text" class="form-control" id="address" value="{{ school_grade }}">
+                            <label for="japanese">国語</label>
+                            <select name='japanese' type="text" class="form-control" id="japanese" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="img_path">Choose a profile picture:</label>
-                            <input type="file" id="img_path" name="img_path" accept="image/png, image/jpeg" value="{{ school_grade }}">
+                            <label for="math">数学</label>
+                            <select name='math' type="text" class="form-control" id="math" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="address">コメント</label>
-                            <input name='address' type="text" class="form-control" id="address" value="{{ school_grade }}">
+                            <label for="science">理科</label>
+                            <select name='science' type="text" class="form-control" id="science" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label for="social_studies">社会</label>
+                            <select name='social_studies' type="text" class="form-control" id="social_studies" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="music">音楽</label>
+                            <select name='music' type="text" class="form-control" id="music" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="home_economics">家庭科</label>
+                            <select name='home_economics' type="text" class="form-control" id="home_economics" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="english">英語</label>
+                            <select name='english' type="text" class="form-control" id="english" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="art">美術</label>
+                            <select name='art' type="text" class="form-control" id="art" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="health_and_physical_education">保健体育</label>
+                            <select name='health_and_physical_education' type="text" class="form-control" id="health_and_physical_education" value="">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+
                         
-                        <button type='submit' class="btn btn-primary btn-lg">編集</button>
+                        <button type='submit' class="btn btn-primary btn-lg">成績登録</button>
                     </form>
                 </div>
-
+                <a href="{{url('show/{id}')}}" class="btn">戻る</a>
                 </div>
 
                 

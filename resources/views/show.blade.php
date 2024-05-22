@@ -23,7 +23,13 @@
                             <li>コメント：{{ $student['comment'] }}</li>
                         </ul>
                         <a href="{{url('edit/{id}')}}">学生編集</a>
-                        
+                        <ul>
+                            <li>学年：{{ $student->school_grades->grade }}</li>
+                            <li>名前：{{ $student['name'] }}</li>
+                            <li>住所：{{ $student['address'] }}</li>
+                            <li>顔写真：{{ $student['img_path'] }}</li>
+                            <li>コメント：{{ $student['comment'] }}</li>
+                        </ul>
                     @endforeach
                 </div>
 

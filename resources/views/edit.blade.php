@@ -45,6 +45,8 @@
                         
                         <button type='submit' class="btn btn-primary btn-lg">編集</button>
                     </form>
+
+                    <a href="{{url('index')}}" class="btn">戻る</a>
                 </div>
 
                 </div>

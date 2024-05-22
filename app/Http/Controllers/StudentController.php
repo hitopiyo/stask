@@ -101,8 +101,27 @@ class StudentController extends Controller
     public function creategrade()
     {
         $user = \Auth::user();
-        $school_grade = SchoolGrade::get();
-        return view('graderegister', compact('user'));
+
+        return view('graderegister',compact('user'));
+    }
+    public function addgrade(Request $request)
+    {
+        $datasecond = $request->all();
+        $schoolgrade_id = SchoolGrades::insertGetId([
+            'grade' => $datasecond['grade'],
+            'term' => $datasecond['term'],
+            'japanese' => $datasecond['japanese'],
+            'math' => $datasecond['math'],
+            'science' => $datasecond['science'],
+            'social_studies' => $datasecond['social_studies'],
+            'music' => $datasecond['music'],
+            'home_economics' => $datasecond['home_economics'],
+            'english' => $datasecond['english'],
+            'art' => $datasecond['art'],
+            'health_and_physical_education' => $datasecond['health_and_physical_education'],
+
+        ]);
+        return redirect()->route('creategrade');
     }
 
     /**
