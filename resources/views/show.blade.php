@@ -23,12 +23,20 @@
                             <li>コメント：{{ $student['comment'] }}</li>
                         </ul>
                         <a href="{{url('edit/{id}')}}">学生編集</a>
-                        <ul>
-                            <li>学年：{{ $student->school_grades->grade }}</li>
-                            <li>名前：{{ $student['name'] }}</li>
-                            <li>住所：{{ $student['address'] }}</li>
-                            <li>顔写真：{{ $student['img_path'] }}</li>
-                            <li>コメント：{{ $student['comment'] }}</li>
+                    @endforeach
+                    @foreach($grades AS $grade)
+                    <ul>
+                            <li>学年時：{{ $grade->grade }}</li>
+                            <li>学期：{{ $grade->term }}</li>
+                            <li>国語：{{ $grade->japanese }}</li>
+                            <li>数学：{{ $grade->math }}</li>
+                            <li>理科：{{ $grade->science }}</li>
+                            <li>社会：{{ $grade->social_studies }}</li>
+                            <li>音楽：{{ $grade->music }}</li>
+                            <li>家庭科：{{ $grade->home_economics }}</li>
+                            <li>英語：{{ $grade->english }}</li>
+                            <li>美術：{{ $grade->art }}</li>
+                            <li>保健体育：{{ $grade->health_and_physical_education }}</li>
                         </ul>
                     @endforeach
                 </div>

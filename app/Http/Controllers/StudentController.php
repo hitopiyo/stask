@@ -63,7 +63,8 @@ class StudentController extends Controller
     public function show($id)
     {
         $students = Student::where('id',$id)->get();
-        return view('show', compact('students'));
+        $grades = SchoolGrade::where('id',$id)->get();   
+        return view('show', compact('students','grades'));
     }
 
     /**
@@ -106,8 +107,16 @@ class StudentController extends Controller
     }
     public function addgrade(Request $request)
     {
+
+        //$grade = new SchoolGrade;
+        //$grade->fill($request->all())->save();
+        
         $datasecond = $request->all();
-        $schoolgrade_id = SchoolGrades::insertGetId([
+        $student=Student::get();
+        $grade=SchoolGrade::where('student_id',$id)->get();
+        dd($grade);
+        $schoolgrade_id = SchoolGrade::insertGetId([
+            'student_id' =>1,
             'grade' => $datasecond['grade'],
             'term' => $datasecond['term'],
             'japanese' => $datasecond['japanese'],
@@ -119,9 +128,8 @@ class StudentController extends Controller
             'english' => $datasecond['english'],
             'art' => $datasecond['art'],
             'health_and_physical_education' => $datasecond['health_and_physical_education'],
-
         ]);
-        return redirect()->route('creategrade');
+        return redirect()->route('home');
     }
 
     /**

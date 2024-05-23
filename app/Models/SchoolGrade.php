@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolGrades extends Model
+class SchoolGrade extends Model
 {
-    protected $table = 'school_grade';
+    protected $table = 'school_grades';
+    protected $primaryKey = 'student_id';
     protected $fillable = [
+        'student_id',
         'grade',
         'term',
         'japanese',
