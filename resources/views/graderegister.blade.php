@@ -14,9 +14,9 @@
                         </div>
                     @endif
 
-                    <form method='POST' action="{{url('addgrade')}}">
+                    <form method='POST' action="">
                     @csrf
-                    
+                    <input type='hidden' name='id' value="{{ $student['id'] }}">
                         
                         <div class="form-group">
                             <label for="grade">学年</label>
@@ -106,12 +106,10 @@
                                 <option value="3">3</option>
                             </select>
                         </div>
-
-                        
                         <button type='submit' class="btn btn-primary btn-lg">成績登録</button>
                     </form>
                 </div>
-                <a href="{{url('show/{id}')}}" class="btn">戻る</a>
+                <a href="{{url('index')}}" class="btn">戻る</a>
                 </div>
 
                 

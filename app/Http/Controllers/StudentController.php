@@ -63,7 +63,7 @@ class StudentController extends Controller
     public function show($id)
     {
         $students = Student::where('id',$id)->get();
-        $grades = SchoolGrade::where('id',$id)->get();   
+        $grades = SchoolGrade::where('student_id',$id)->get();   
         return view('show', compact('students','grades'));
     }
 
@@ -89,34 +89,36 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 商品データを1件取得
+        // 学生情報をidで取得
         $student = Student::find($id);
 
         // リクエストからModelの$fillableに設定したプロパティのみを抽出・保存
         $student->fill($request->all())->save();
 
-        // http://localhost/item_manager/public/itemにリダイレクト
-        return redirect("/show/{id}");
+        // hhttp://localhost:8888/stask/public/edit/{id}にリダイレクト
+        return redirect()->route('edit',['id'=>$student->id]);
     }
     
     public function creategrade()
     {
-        $user = \Auth::user();
-
-        return view('graderegister',compact('user'));
+        //クリックしたstudentのid情報を渡す
+        $student =Student::first();
+        dd($student);
+        return view('graderegister');
     }
-    public function addgrade(Request $request)
+    public function addgrade(Request $request, $id)
     {
 
         //$grade = new SchoolGrade;
         //$grade->fill($request->all())->save();
         
         $datasecond = $request->all();
-        $student=Student::get();
-        $grade=SchoolGrade::where('student_id',$id)->get();
+        dd($datasecond);
+        $student=Student::find($id);
+        $grade=SchoolGrade::where('student_id',$student)->get();
         dd($grade);
         $schoolgrade_id = SchoolGrade::insertGetId([
-            'student_id' =>1,
+            'student_id' =>$student['id'],
             'grade' => $datasecond['grade'],
             'term' => $datasecond['term'],
             'japanese' => $datasecond['japanese'],
@@ -129,7 +131,7 @@ class StudentController extends Controller
             'art' => $datasecond['art'],
             'health_and_physical_education' => $datasecond['health_and_physical_education'],
         ]);
-        return redirect()->route('home');
+        return redirect()->route('creategrade',['id'=>$student->id]);
     }
 
     /**

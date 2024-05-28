@@ -20,7 +20,7 @@
                         
                         <div class="form-group">
                             <p>学生id</p>
-                            <p>{{ $students->name }}</p>
+                            <p>{{ $students->id }}</p>
                         </div>
                         <div class="form-group">
                             <label for="grade">学年</label>

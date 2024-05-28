@@ -15,7 +15,7 @@
                     @endif
 
                     @foreach($students AS $student)
-                        <p>{{ $student['grade'] }}：{{ $student['name'] }}：<a href="{{url('show/{id}')}}" class="btn">詳細表示</a></p>
+                        <p>{{ $student['grade'] }}：{{ $student['name'] }}：<a href="{{ route( 'show',['id'=>$student->id] ) }}" class="btn">詳細表示</a></p>
                     @endforeach
                 </div>
 

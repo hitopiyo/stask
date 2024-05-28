@@ -30,6 +30,7 @@
                         
                         <button type='submit' class="btn btn-primary btn-lg">登録</button>
                     </form>
+                    <a href="{{url('home')}}" class="btn">戻る</a>
                 </div>
             </div>
         </div>

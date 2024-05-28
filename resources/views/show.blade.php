@@ -22,10 +22,10 @@
                             <li>顔写真：{{ $student['img_path'] }}</li>
                             <li>コメント：{{ $student['comment'] }}</li>
                         </ul>
-                        <a href="{{url('edit/{id}')}}">学生編集</a>
+                        <a href="{{ route( 'edit',['id'=>$student->id] ) }}">学生編集</a>
                     @endforeach
                     @foreach($grades AS $grade)
-                    <ul>
+                        <ul>
                             <li>学年時：{{ $grade->grade }}</li>
                             <li>学期：{{ $grade->term }}</li>
                             <li>国語：{{ $grade->japanese }}</li>
@@ -38,7 +38,10 @@
                             <li>美術：{{ $grade->art }}</li>
                             <li>保健体育：{{ $grade->health_and_physical_education }}</li>
                         </ul>
+                        <a href="{{ route( 'edit',['id'=>$student->id] ) }}">成績編集</a>
                     @endforeach
+                    <a href="{{ route( 'creategrade',['id'=>$student->id] ) }}">成績登録</a>
+                    <a href="{{url('index')}}" class="btn">戻る</a>
                 </div>
 
                 
