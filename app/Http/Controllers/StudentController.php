@@ -99,24 +99,24 @@ class StudentController extends Controller
         return redirect()->route('edit',['id'=>$student->id]);
     }
     
-    public function creategrade()
+    public function creategrade($id)
     {
         //クリックしたstudentのid情報を渡す
-        $student =Student::first();
-        dd($student);
-        return view('graderegister');
+        $student = Student::where('id',$id)->first();
+        return view('graderegister',compact('student'));
     }
-    public function addgrade(Request $request, $id)
+    public function addgrade(Request $request,$id)
     {
 
         //$grade = new SchoolGrade;
         //$grade->fill($request->all())->save();
         
         $datasecond = $request->all();
-        dd($datasecond);
-        $student=Student::find($id);
-        $grade=SchoolGrade::where('student_id',$student)->get();
-        dd($grade);
+        //dd($datasecond);
+        $student=Student::where('id',$id)->first();
+        //dd($student);
+        $grade=SchoolGrade::where('student_id',$student->id)->get();
+        //dd($grade);
         $schoolgrade_id = SchoolGrade::insertGetId([
             'student_id' =>$student['id'],
             'grade' => $datasecond['grade'],
