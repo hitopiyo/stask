@@ -23,7 +23,7 @@
                             <select name='grade' type="text" class="form-control" id="grade">
                             
                             @foreach (Config::get('select.select_name') as $key => $val)
-                                <option value="{{ $key }}" {{ $key = old('key', $schoolgrade->grade) ? 'selected' : '' }}>{{ $val }}</option>
+                                <option value="{{ $key }}" {{ $key = old('grade', $student->grade) ? 'selected' : '' }}>{{ $val }}</option>
                             @endforeach
 
                             </select>
@@ -39,9 +39,11 @@
                         <div class="form-group">
                             <label for="japanese">国語</label>
                             <select name='japanese' type="text" class="form-control" id="japanese" value="">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                
+                            @foreach (Config::get('select.select_name') as $key => $val)
+                                <option value="{{ $key }}" {{ $key = old('japanese', $student->japanese) ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                
                             </select>
                         </div>
                         <div class="form-group">
