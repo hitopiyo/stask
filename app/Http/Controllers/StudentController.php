@@ -129,11 +129,19 @@ class StudentController extends Controller
             'home_economics' => $datasecond['home_economics'],
             'english' => $datasecond['english'],
             'art' => $datasecond['art'],
-            'health_and_physical_education' => $datasecond['health_and_physical_education'],
+            'health_and_physical_education' => $datasecond['health_and_physical_education']
         ]);
         return redirect()->route('creategrade',['id'=>$student->id]);
     }
 
+    public function gradeedit($id)
+    {
+        $user = \Auth::user();
+        $student = Student::where('id',$id)->first();
+        $schoolgrade = SchoolGrade::where('student_id',$student->id)->first();
+        //dd($schoolgrade);
+        return view('gradeedit',['id'=> $id ],compact('student','user','schoolgrade'));
+    }
     /**
      * Remove the specified resource from storage.
      *

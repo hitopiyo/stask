@@ -31,3 +31,4 @@ Route::get('/edit/{id}', 'StudentController@edit')->name('edit');
 Route::post('/update/{id}', 'StudentController@update')->name('update');
 Route::get('/graderegister/{id}', 'StudentController@creategrade')->name('creategrade');
 Route::post('/addgrade/{id}', 'StudentController@addgrade')->name('addgrade');
+Route::get('/gradeedit/{id}', 'StudentController@gradeedit')->name('gradeedit');

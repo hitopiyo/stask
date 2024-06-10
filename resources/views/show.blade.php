@@ -26,8 +26,8 @@
                     @endforeach
                     @foreach($grades AS $grade)
                         <ul>
-                            <li>学年時：{{ $grade->grade }}</li>
-                            <li>学期：{{ $grade->term }}</li>
+                            <li>学年時：{{ $grade->grade }} 年</li>
+                            <li>学期：{{ $grade->term }} 学期</li>
                             <li>国語：{{ $grade->japanese }}</li>
                             <li>数学：{{ $grade->math }}</li>
                             <li>理科：{{ $grade->science }}</li>
@@ -38,7 +38,7 @@
                             <li>美術：{{ $grade->art }}</li>
                             <li>保健体育：{{ $grade->health_and_physical_education }}</li>
                         </ul>
-                        <a href="{{ route( 'edit',['id'=>$student->id] ) }}">成績編集</a>
+                        <a href="{{ route( 'gradeedit',['id'=>$student->id] ) }}">成績編集</a>
                     @endforeach
                     <a href="{{ route( 'creategrade',['id'=>$student->id] ) }}">成績登録</a>
                     <a href="{{url('index')}}" class="btn">戻る</a>
