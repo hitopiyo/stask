@@ -22,8 +22,9 @@
                             <label for="grade">学年</label>
                             <select name='grade' type="text" class="form-control" id="grade">
                             
-                            @foreach (Config::get('select.select_name') as $key => $val)
-                                <option value="{{ $key }}" {{ $key = old('grade', $student->grade) ? 'selected' : '' }}>{{ $val }}</option>
+                            @foreach ($select as $selects)
+                                <option value="{{ $selects }}" selected>{{ $selects }}</option>
+                                
                             @endforeach
 
                             </select>

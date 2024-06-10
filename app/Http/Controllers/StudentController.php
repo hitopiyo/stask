@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\SchoolGrade;
+use Illuminate\Support\Facades\Config;
 
 
 class StudentController extends Controller
@@ -103,7 +104,8 @@ class StudentController extends Controller
     {
         //クリックしたstudentのid情報を渡す
         $student = Student::where('id',$id)->first();
-        return view('graderegister',compact('student'));
+        $select = Config::get('select.select_name');
+        return view('graderegister',compact('student','select'));
     }
     public function addgrade(Request $request,$id)
     {
@@ -116,7 +118,6 @@ class StudentController extends Controller
         $student=Student::where('id',$id)->first();
         //dd($student);
         $grade=SchoolGrade::where('student_id',$student->id)->get();
-        //dd($grade);
         $schoolgrade_id = SchoolGrade::insertGetId([
             'student_id' =>$student['id'],
             'grade' => $datasecond['grade'],
@@ -140,7 +141,9 @@ class StudentController extends Controller
         $student = Student::where('id',$id)->first();
         $schoolgrade = SchoolGrade::where('student_id',$student->id)->first();
         //dd($schoolgrade);
-        return view('gradeedit',['id'=> $id ],compact('student','user','schoolgrade'));
+        $select = Config::get('select.select_name');
+        //dd($select);
+        return view('gradeedit',['id'=> $id ],compact('student','user','schoolgrade','select'));
     }
     /**
      * Remove the specified resource from storage.
