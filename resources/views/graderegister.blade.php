@@ -22,7 +22,7 @@
                             <label for="grade">学年</label>
                             <select name='grade' type="text" class="form-control" id="grade" value="">
                             @foreach ($select as $selects)
-                                <option value="{{ $selects }}">{{ $selects }}年</option>
+                                <option value="{{ $selects }}" selected>{{ $selects }}</option>
                             @endforeach
                             </select>
                         </div>

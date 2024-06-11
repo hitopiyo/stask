@@ -21,11 +21,10 @@
                         <div class="form-group">
                             <label for="grade">学年</label>
                             <select name='grade' type="text" class="form-control" id="grade">
-                            
                             @foreach ($select as $selects)
-                                <option value="{{ $selects }}" selected>{{ $selects }}</option>
-                                
+                                <option value="{{ $selects }}"{{$selects == $schoolgrade['grade'] ? "selected" : ""}}>{{ $selects }}年</option>
                             @endforeach
+                            
 
                             </select>
                         </div>
