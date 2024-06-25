@@ -22,23 +22,23 @@
                             <li>顔写真：{{ $student['img_path'] }}</li>
                             <li>コメント：{{ $student['comment'] }}</li>
                         </ul>
-                        <a href="{{ route( 'edit',['id'=>$student->id] ) }}">学生編集</a>
+                        <a href="{{ route( 'edit',['id'=>$student->id] ) }}">学生編集</a><br><br>
                     @endforeach
-                    @foreach($grades AS $grade)
+                    @foreach($schoolgrade AS $schoolgrades)
                         <ul>
-                            <li>学年時：{{ $grade->grade }} 年</li>
-                            <li>学期：{{ $grade->term }} 学期</li>
-                            <li>国語：{{ $grade->japanese }}</li>
-                            <li>数学：{{ $grade->math }}</li>
-                            <li>理科：{{ $grade->science }}</li>
-                            <li>社会：{{ $grade->social_studies }}</li>
-                            <li>音楽：{{ $grade->music }}</li>
-                            <li>家庭科：{{ $grade->home_economics }}</li>
-                            <li>英語：{{ $grade->english }}</li>
-                            <li>美術：{{ $grade->art }}</li>
-                            <li>保健体育：{{ $grade->health_and_physical_education }}</li>
+                            <li>学年時：{{ $schoolgrades->grade }} 年</li>
+                            <li>学期：{{ $schoolgrades->term }} 学期</li>
+                            <li>国語：{{ $schoolgrades->japanese }}</li>
+                            <li>数学：{{ $schoolgrades->math }}</li>
+                            <li>理科：{{ $schoolgrades->science }}</li>
+                            <li>社会：{{ $schoolgrades->social_studies }}</li>
+                            <li>音楽：{{ $schoolgrades->music }}</li>
+                            <li>家庭科：{{ $schoolgrades->home_economics }}</li>
+                            <li>英語：{{ $schoolgrades->english }}</li>
+                            <li>美術：{{ $schoolgrades->art }}</li>
+                            <li>保健体育：{{ $schoolgrades->health_and_physical_education }}</li>
                         </ul>
-                        <a href="{{ route( 'gradeedit',['id'=>$student->id] ) }}">成績編集</a>
+                        <a href="{{ route( 'gradeedit',['id'=>$student->id] ) }}">成績編集</a><br><br>
                     @endforeach
                     <a href="{{ route( 'creategrade',['id'=>$student->id] ) }}">成績登録</a>
                     <a href="{{url('index')}}" class="btn">戻る</a>

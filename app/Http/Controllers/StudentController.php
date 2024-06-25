@@ -64,8 +64,8 @@ class StudentController extends Controller
     public function show($id)
     {
         $students = Student::where('id',$id)->get();
-        $grades = SchoolGrade::where('student_id',$id)->get();   
-        return view('show', compact('students','grades'));
+        $schoolgrade = SchoolGrade::where('student_id',$id)->get();   
+        return view('show', compact('students','schoolgrade'));
     }
 
     /**
@@ -78,6 +78,7 @@ class StudentController extends Controller
     {
         $user = \Auth::user();
         $students = Student::where('id',$id)->first();
+
         return view('edit',['id'=> $id ],compact('students','user'));
     }
 
@@ -139,7 +140,8 @@ class StudentController extends Controller
     {
         $user = \Auth::user();
         $student = Student::where('id',$id)->first();
-        $schoolgrade = SchoolGrade::where('student_id',$student->id)->first();
+        //dd($student);
+        $schoolgrade = SchoolGrade::where('student_id',$id)->first();
         //dd($schoolgrade);
         $select = Config::get('select.select_name');
         //dd($select);

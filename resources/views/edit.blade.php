@@ -16,7 +16,7 @@
 
                     <form method='POST' action="{{url('update',['id'=>$students['id']])}}">
                     @csrf
-                        <input type='hidden' name='user_id' value="{{ $user['id'] }}">
+                        <input type='hidden' name='user_id' value="">
                         
                         <div class="form-group">
                             <p>学生id</p>
