@@ -136,17 +136,38 @@ class StudentController extends Controller
         return redirect()->route('creategrade',['id'=>$student->id]);
     }
 
-    public function gradeedit($id)
+    public function gradeedit($iid)
     {
         $user = \Auth::user();
-        $student = Student::where('id',$id)->first();
+        $student = Student::where('id',$iid)->first();
         //dd($student);
-        $schoolgrade = SchoolGrade::where('student_id',$id)->first();
+        $schoolgrade = SchoolGrade::where('id',$iid)->first();
         //dd($schoolgrade);
         $select = Config::get('select.select_name');
         //dd($select);
-        return view('gradeedit',['id'=> $id ],compact('student','user','schoolgrade','select'));
+        return view('gradeedit',['id'=> $iid ],compact('student','user','schoolgrade','select'));
     }
+
+    public function updategrade(Request $request, $id)
+    {
+        $inputs = $request->all();
+        //dd($inputs);
+        SchoolGrade::where('id',$id)->update([
+            'grade' => $inputs['grade'],
+            'term' => $inputs['term'],
+            'japanese' => $inputs['japanese'],
+            'math' => $inputs['math'],
+            'science' => $inputs['science'], 
+            'social_studies' => $inputs['social_studies'],
+            'music' => $inputs['music'],
+            'home_economics' => $inputs['home_economics'],
+            'english' => $inputs['english'],
+            'art' => $inputs['art'],
+            'health_and_physical_education' => $inputs['health_and_physical_education']
+        ]);
+        return redirect()->route('gradeedit',['iid'=>$id]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -14,9 +14,9 @@
                         </div>
                     @endif
 
-                    <form method='POST' action="{{route('addgrade',['id'=>$student->id])}}">
+                    <form method='POST' action="{{route('updategrade',['id'=>$schoolgrade->id])}}">
                     @csrf
-                        <input type='hidden' name='student_id' value="{{ $schoolgrade['student_id'] }}">
+                        <input type='hidden' name='student_id' value="{{ $schoolgrade['id'] }}">
                         
                         <div class="form-group">
                             <label for="grade">学年</label>

@@ -38,7 +38,7 @@
                             <li>美術：{{ $schoolgrades->art }}</li>
                             <li>保健体育：{{ $schoolgrades->health_and_physical_education }}</li>
                         </ul>
-                        <a href="{{ route( 'gradeedit',['id'=>$student->id] ) }}">成績編集</a><br><br>
+                        <a href="{{ route( 'gradeedit',['iid'=>$schoolgrades->id] ) }}">成績編集</a><br><br>
                     @endforeach
                     <a href="{{ route( 'creategrade',['id'=>$student->id] ) }}">成績登録</a>
                     <a href="{{url('index')}}" class="btn">戻る</a>
