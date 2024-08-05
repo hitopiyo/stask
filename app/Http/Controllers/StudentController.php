@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\SchoolGrade;
 use Illuminate\Support\Facades\Config;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
 
 class StudentController extends Controller
@@ -17,10 +19,16 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::get();
+        $students = Student::where('status',1)->get();
+        $articles = Student::orderBy('created_at', 'asc')->where(function ($query) {
 
-        return view('index',compact('students'));
-        
+            // 検索機能
+            if ($search = request('search')) {
+                $query->where('name', 'LIKE', "%{$search}%")->orWhere('grade','LIKE',"%{$search}%");
+            }
+            // 8投稿毎にページ移動
+        })->paginate(8);
+        return view('index',compact('students','articles'));        
     }
 
 
@@ -50,7 +58,8 @@ class StudentController extends Controller
             'address' => $data['address'],
             'grade' => 1,
             'img_path' =>1,
-            'comment' => 1
+            'comment' => 1,
+            'status' => 1
         ]);
         return redirect()->route('home');
     }
@@ -63,7 +72,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        $students = Student::where('id',$id)->get();
+        $students = Student::where('id',$id)->where('status',1)->get();
         $schoolgrade = SchoolGrade::where('student_id',$id)->get();   
         return view('show', compact('students','schoolgrade'));
     }
@@ -93,12 +102,35 @@ class StudentController extends Controller
     {
         // 学生情報をidで取得
         $student = Student::find($id);
-
+        $data = $request->all();
+        
+        //画像がアップロードされていれば、storageに保存
+        if($request->hasFile('img_path')){
+            $image = $request -> file('img_path');
+            //dd($image);
+            $file_name = $request->file('img_path')->getClientOriginalName();
+            //dd($file_name);
+            $request->file('img_path')->storeAs('/public' , $file_name);
+            $student->img_path=$file_name;
+            $path = \Storage::put('/public',$image);
+            $path = explode('/',$path);
+        }else{
+            $path = null;
+        }
+        //dd($path);
         // リクエストからModelの$fillableに設定したプロパティのみを抽出・保存
-        $student->fill($request->all())->save();
+         //$student->fill($request->all())->save();
+        $student ->update([
+            'name' => $data['name'], 
+            'address' => $data['address'],
+            'grade' => $data['grade'], 
+            'img_path' =>$path[1], 
+            'comment' => $data['comment'],
+            'status' => 1
+        ]);
 
         // hhttp://localhost:8888/stask/public/edit/{id}にリダイレクト
-        return redirect()->route('edit',['id'=>$student->id]);
+        return redirect()->route('edit',['id'=>$student->id])->with('status','学生の更新が完了しました');;
     }
     
     public function creategrade($id)
@@ -166,6 +198,19 @@ class StudentController extends Controller
             'health_and_physical_education' => $inputs['health_and_physical_education']
         ]);
         return redirect()->route('gradeedit',['iid'=>$id]);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $inputs = $request->all();
+        //dd($inputs);
+        //論理削除なので、statusを2に変更する
+        Student::where('id',$id)->update([
+            'status' => 2
+        ]);
+        //物理削除は下記書き方になる
+        //SchoolGrade::where('id',$id)->delete;
+        return redirect()->route('home')->with('success','学生の削除が完了しました');
     }
 
     /**

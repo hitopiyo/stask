@@ -33,3 +33,4 @@ Route::get('/graderegister/{id}', 'StudentController@creategrade')->name('create
 Route::post('/addgrade/{id}', 'StudentController@addgrade')->name('addgrade');
 Route::get('/gradeedit/{iid}', 'StudentController@gradeedit')->name('gradeedit');
 Route::post('/updategrade/{id}', 'StudentController@updategrade')->name('updategrade');
+Route::post('/delete/{id}', 'StudentController@delete')->name('delete');
