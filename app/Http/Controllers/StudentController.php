@@ -17,20 +17,25 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::where('status',1)->get();
-        $articles = Student::orderBy('created_at', 'asc')->where(function ($query) {
+        //$student = Student::where('status',1)->get();
+        //dd($student);
+            //dd($request->search);
+            $student = Student::where('status',1)->where('name', 'LIKE', "%{$request->search}%" )
+            ->orWhere('grade', 'LIKE', "%{$request->search}%" )->paginate(50);
+            //dd($student);
 
-            // 検索機能
-            if ($search = request('search')) {
-                $query->where('name', 'LIKE', "%{$search}%")->orWhere('grade','LIKE',"%{$search}%");
-            }
-            // 8投稿毎にページ移動
-        })->paginate(8);
-        return view('index',compact('students','articles'));        
+            //検索結果何件の表示
+            $search_result = $request->search.'の検索結果'.count($student).'件';
+
+            return view('index', [
+                'students' => $student,
+                'search_result' => $search_result,
+                'search_query' => $request->search
+            ]);
+        //return view('index',compact('students'));        
     }
-
 
     /**
      * Show the form for creating a new resource.

@@ -14,21 +14,25 @@
                         </div>
                     @endif
 
+                    @if(isset($search_result))
+                    <h5 class="card-title">{{$search_result}}</h5>
+                    @endif
+
                     <form action="{{ route('index') }}" method="GET" class="form-inline my-2 my-lg-0 ml-2">
+                    @csrf
                         <div class="form-group">
                             <input type="search" class="form-control mr-sm-2" name="search"  value="{{request('search')}}" placeholder="キーワードを入力" aria-label="検索...">
                         </div>
                         <input type="submit" value="検索" class="btn btn-info">
                     </form>
 
-                    {{ $articles['name'] }}
-                    <div class="d-flex justify-content-center ">
-                        {{ $articles->links() }}
-                    </div>
-
                     @foreach($students AS $student)
-                        <p>{{ $student['grade'] }}：{{ $student['name'] }}：<a href="{{ route( 'show',['id'=>$student->id] ) }}" class="btn">詳細表示</a></p>
+                        <p>【学年】{{ $student['grade'] }}年 【名前】{{ $student['name'] }}▶︎<a href="{{ route( 'show',['id'=>$student->id] ) }}" class="btn">詳細表示</a></p>
                     @endforeach
+                </div>
+            
+                <div class="d-flex justify-content-center ">
+                        {{ $students->links() }}
                 </div>
 
                 

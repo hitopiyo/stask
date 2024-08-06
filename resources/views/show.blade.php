@@ -48,7 +48,7 @@
                     @endforeach
                     <a href="{{ route( 'creategrade',['id'=>$student->id] ) }}">▶︎成績登録</a><br>
                     
-                    <a href="{{url('index')}}" class="btn">戻る</a>
+                    <a href="{{route('index')}}" class="btn">戻る</a>
                 </div>
 
                 
