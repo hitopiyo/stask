@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'StudentController@index')->name('index');
+Route::POST('/index', 'StudentController@index')->name('index');
 Route::get('/menu', 'StudentController@index')->name('menu');
 Route::get('/addstudent', 'StudentController@create')->name('create');
 Route::post('/store', 'StudentController@store')->name('store');

@@ -80,6 +80,25 @@
             @endif
             @yield('content')
         </main>
+        <script>
+        $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN': $("[name='csrf-token']").attr("content") },
+        })
+        $('.search').on('click', function(){
+            id = $('input[name="search"]').val();
+            $.ajax({
+                url: "{{ route('index') }}",
+                method: "POST",
+                data: { name : id },
+                dataType: "json",
+            }).done(function(res){
+                    console.log(res);
+                    $('ul').append('<li>'+ res + '</li>');
+            }).faile(function(){
+                alert('通信の失敗をしました');
+            });
+        });
+    </script>
     </div>
 </body>
 </html>

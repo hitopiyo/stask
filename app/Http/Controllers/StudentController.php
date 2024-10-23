@@ -19,22 +19,16 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        //$student = Student::where('status',1)->get();
-        //dd($student);
-            //dd($request->search);
+        
             $student = Student::where('status',1)->where('name', 'LIKE', "%{$request->search}%" )
             ->orWhere('grade', 'LIKE', "%{$request->search}%" )->paginate(50);
-            //dd($student);
-
-            //検索結果何件の表示
             $search_result = $request->search.'の検索結果'.count($student).'件';
-
             return view('index', [
                 'students' => $student,
                 'search_result' => $search_result,
                 'search_query' => $request->search
             ]);
-        //return view('index',compact('students'));        
+    
     }
 
     /**
@@ -57,7 +51,6 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        //return view('top');
         $student_id = Student::insertGetId([
             'name' => $data['name'], 
             'address' => $data['address'],
@@ -77,9 +70,13 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+    try{
         $students = Student::where('id',$id)->where('status',1)->get();
         $schoolgrade = SchoolGrade::where('student_id',$id)->get();   
         return view('show', compact('students','schoolgrade'));
+    }catch(Exception $e){
+        echo "例外が発生しました";
+    }
     }
 
     /**
@@ -105,16 +102,14 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 学生情報をidで取得
+
         $student = Student::find($id);
         $data = $request->all();
         
-        //画像がアップロードされていれば、storageに保存
+
         if($request->hasFile('img_path')){
             $image = $request -> file('img_path');
-            //dd($image);
             $file_name = $request->file('img_path')->getClientOriginalName();
-            //dd($file_name);
             $request->file('img_path')->storeAs('/public' , $file_name);
             $student->img_path=$file_name;
             $path = \Storage::put('/public',$image);
@@ -122,9 +117,7 @@ class StudentController extends Controller
         }else{
             $path = null;
         }
-        //dd($path);
-        // リクエストからModelの$fillableに設定したプロパティのみを抽出・保存
-         //$student->fill($request->all())->save();
+
         $student ->update([
             'name' => $data['name'], 
             'address' => $data['address'],
@@ -133,14 +126,12 @@ class StudentController extends Controller
             'comment' => $data['comment'],
             'status' => 1
         ]);
-
-        // hhttp://localhost:8888/stask/public/edit/{id}にリダイレクト
         return redirect()->route('edit',['id'=>$student->id])->with('status','学生の更新が完了しました');;
     }
     
     public function creategrade($id)
     {
-        //クリックしたstudentのid情報を渡す
+
         $student = Student::where('id',$id)->first();
         $select = Config::get('select.select_name');
         return view('graderegister',compact('student','select'));
@@ -148,13 +139,9 @@ class StudentController extends Controller
     public function addgrade(Request $request,$id)
     {
 
-        //$grade = new SchoolGrade;
-        //$grade->fill($request->all())->save();
         
         $datasecond = $request->all();
-        //dd($datasecond);
         $student=Student::where('id',$id)->first();
-        //dd($student);
         $grade=SchoolGrade::where('student_id',$student->id)->get();
         $schoolgrade_id = SchoolGrade::insertGetId([
             'student_id' =>$student['id'],
@@ -177,18 +164,15 @@ class StudentController extends Controller
     {
         $user = \Auth::user();
         $student = Student::where('id',$iid)->first();
-        //dd($student);
         $schoolgrade = SchoolGrade::where('id',$iid)->first();
-        //dd($schoolgrade);
         $select = Config::get('select.select_name');
-        //dd($select);
         return view('gradeedit',['id'=> $iid ],compact('student','user','schoolgrade','select'));
     }
 
     public function updategrade(Request $request, $id)
     {
         $inputs = $request->all();
-        //dd($inputs);
+
         SchoolGrade::where('id',$id)->update([
             'grade' => $inputs['grade'],
             'term' => $inputs['term'],
@@ -208,13 +192,10 @@ class StudentController extends Controller
     public function delete(Request $request, $id)
     {
         $inputs = $request->all();
-        //dd($inputs);
-        //論理削除なので、statusを2に変更する
         Student::where('id',$id)->update([
             'status' => 2
         ]);
-        //物理削除は下記書き方になる
-        //SchoolGrade::where('id',$id)->delete;
+
         return redirect()->route('home')->with('success','学生の削除が完了しました');
     }
 
