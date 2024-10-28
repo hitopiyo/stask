@@ -192,9 +192,7 @@ class StudentController extends Controller
     public function delete(Request $request, $id)
     {
         $inputs = $request->all();
-        Student::where('id',$id)->update([
-            'status' => 2
-        ]);
+        Student::where('id',$id)->delete();
 
         return redirect()->route('home')->with('success','学生の削除が完了しました');
     }

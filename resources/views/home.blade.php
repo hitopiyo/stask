@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <a class="btn" href="/">学年更新</a>
+                    <a class="btn" href="{{ route('home') }}">学年更新</a>
                     <a class="btn" href="{{url('addstudent')}}">学生登録</a>
                     <a class="btn" href="{{url('index')}}">学生表示</a>
                 </div>
