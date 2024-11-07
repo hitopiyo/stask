@@ -17,6 +17,8 @@ class Student extends Model
         'comment'
     ];
 
+    
+
     // school_gradeテーブルとのリレーション設定
     public function school_grade(): BelongsTo
     {

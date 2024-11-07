@@ -8,6 +8,7 @@ use App\Models\SchoolGrade;
 use Illuminate\Support\Facades\Config;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
+use App\Http\Requests\StudentRequest;
 
 
 class StudentController extends Controller
@@ -20,7 +21,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         
-            $student = Student::where('status',1)->where('name', 'LIKE', "%{$request->search}%" )
+            $student = Student::where('name', 'LIKE', "%{$request->search}%" )
             ->orWhere('grade', 'LIKE', "%{$request->search}%" )->paginate(50);
             $search_result = $request->search.'の検索結果'.count($student).'件';
             return view('index', [
@@ -48,18 +49,25 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $data = $request->all();
-        $student_id = Student::insertGetId([
-            'name' => $data['name'], 
-            'address' => $data['address'],
-            'grade' => 1,
-            'img_path' =>1,
-            'comment' => 1,
-            'status' => 1
-        ]);
-        return redirect()->route('home');
+        try{
+            $student= new Student();
+
+            $student->name =$request->input('name');
+            $student->address=$request->input('address');
+            $student->grade=1;
+            $student->img_path=1;
+            $student->comment=1;
+
+            $student->save();
+        }catch(\Exception $e){
+                return redirect()->route('create')->with('alart','登録に失敗しました');
+        }
+
+        
+            
+        return redirect()->route('home')->with('success','生徒の登録が完了しました');
     }
 
     /**
@@ -70,11 +78,16 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+    $students = Student::find($id);
+    if (is_null($students)) {
+        abort(404);
+    }
+
     try{
-        $students = Student::where('id',$id)->where('status',1)->get();
+        $students = Student::where('id',$id)->get();
         $schoolgrade = SchoolGrade::where('student_id',$id)->get();   
         return view('show', compact('students','schoolgrade'));
-    }catch(Exception $e){
+    }catch(\Exception $e){
         echo "例外が発生しました";
     }
     }
@@ -87,10 +100,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $user = \Auth::user();
-        $students = Student::where('id',$id)->first();
-
-        return view('edit',['id'=> $id ],compact('students','user'));
+        $students =Student::find($id);
+        return view('edit',['id'=> $id ],compact('students'));
     }
 
     /**
@@ -197,16 +208,6 @@ class StudentController extends Controller
         return redirect()->route('home')->with('success','学生の削除が完了しました');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return view('top');
-    }
 
     public function studentAll()
     {
