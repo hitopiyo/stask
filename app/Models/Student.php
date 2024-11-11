@@ -17,6 +17,20 @@ class Student extends Model
         'comment'
     ];
 
+    public function StoreStudent(){
+        try{
+            $student->name =$request->input('name');
+            $student->address=$request->input('address');
+            $student->grade=1;
+            $student->img_path=1;
+            $student->comment=1;
+            $student->save();
+
+        }catch(\Exception $e){
+                return redirect()->route('create')->with('alart','登録に失敗しました');
+        }
+    }
+
     
 
     // school_gradeテーブルとのリレーション設定

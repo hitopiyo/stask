@@ -51,22 +51,8 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        try{
-            $student= new Student();
-
-            $student->name =$request->input('name');
-            $student->address=$request->input('address');
-            $student->grade=1;
-            $student->img_path=1;
-            $student->comment=1;
-
-            $student->save();
-        }catch(\Exception $e){
-                return redirect()->route('create')->with('alart','登録に失敗しました');
-        }
-
-        
-            
+        $storestudent = new Student;
+        $student = $storestudent -> StoreStudent();
         return redirect()->route('home')->with('success','生徒の登録が完了しました');
     }
 
